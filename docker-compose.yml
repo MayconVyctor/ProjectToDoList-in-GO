@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+ todo_db:
+     container_name: tdl_db
+     image: postgres:15
+     environment:
+       POSTGRES_PASSWORD: 1234
+       POSTGRES_USER: postgres
+       POSTGRES_DB: postgres
+     ports:
+       - "5432:5432"
+     volumes:
+       - pgdata:/var/lib/postegresql/data
+
+volumes:
+  pgdata: {}
