@@ -2,6 +2,8 @@ package main
 
 import (
 	"todo-api/controller"
+	"todo-api/db"
+	"todo-api/repository"
 	"todo-api/usecase"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +13,15 @@ func main() {
 
 	server := gin.Default()
 
-	TaskUseCase := usecase.NewTaskUseCase()
+	dbConnection, err := db.ConnectDB()
+	if err != nil {
+		panic(err)
+	}
+
+	TaskRepository := repository.NewTaskRepository(dbConnection)
+
+	TaskUseCase := usecase.NewTaskUseCase(TaskRepository)
+
 	TaskControler := controller.NewTaskController(TaskUseCase)
 
 	server.GET("/ping", func(ctx *gin.Context) {
