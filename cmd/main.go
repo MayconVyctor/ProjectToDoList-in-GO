@@ -31,6 +31,7 @@ func main() {
 	})
 
 	server.GET("/tasks", TaskControler.GetTasks)
+	server.POST("/task", TaskControler.CreateTask)
 
 	server.Run(":8000")
 }
